@@ -7,3 +7,4 @@ private-key-staging.pem
 coverage
 lib
 .vercel
+rules.yaml
