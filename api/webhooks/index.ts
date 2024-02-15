@@ -5,5 +5,5 @@ const probot = createProbot();
 
 export default createNodeMiddleware(app, {
   probot,
-  webhooksPath: "/api/webhook",
+  webhooksPath: "/api/webhooks",
 });

@@ -13,6 +13,7 @@ interface Handler {
 }
 
 interface HandlerModule {
+  event: string;
   name: string;
   description: string;
   handler: Handler;

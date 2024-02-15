@@ -1,31 +1,5 @@
-export const defaultLables = [
-  "fix",
-  "feat",
-  "feature",
-  "patch",
-  "hotfix",
-  "ci",
-  "optimize",
-  "refactor",
-  "style",
-  "doc",
-  "docs",
-  "mock",
-  "fixture",
-  "chore",
-  "test",
-  "api",
-];
-
-export const checkerExemptionLabels = [
-  "style",
-  "fixture",
-  "chore",
-  "documentation",
-  "automated-pr",
-  "release:auto",
-];
-
-export const documentationAllowedFileExts = ["md"];
-
-export const strictLabels = defaultLables.slice(0, -5);
+export const WORKFLOW_DISPATCH_OWNER = process.env
+  .WORKFLOW_DISPATCH_OWNER as string;
+export const WORKFLOW_DISPATCH_REPO = process.env
+  .WORKFLOW_DISPATCH_REPO as string;
+export const REPOS_IGNORE = process.env.REPOS_IGNORE as string;

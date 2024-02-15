@@ -1,6 +1,7 @@
+import { Context, Probot } from "probot";
 import { Repository, Result, HandlerModule } from "./common";
 import { HandlerModules } from "./config";
-import { Context, Probot } from "probot";
+import { APIGateway } from "./gateway";
 
 export default async (
   context: Context<any>,
@@ -12,34 +13,23 @@ export default async (
     octokit: context.octokit,
   };
   const repo: Repository = {
-    name: context.payload.repository.name,
-    owner: context.payload.organization?.login as string,
+    owner: context.payload.repository.full_name.split("/")[0],
+    name: context.payload.repository.full_name.split("/")[1],
   };
 
   try {
-    await Promise.all(
-      modules.map(
-        async (module: HandlerModule) =>
-          await context.octokit.checks.create({
-            owner: repo.owner,
-            repo: repo.name,
-            name: module.name,
-            head_sha:
-              event.split(".")[0] === "pull_request"
-                ? context.payload.pull_request.head.sha
-                : context.payload.check_run.check_suite.pull_requests[0].head
-                    .sha,
-            status: "queued",
-            started_at: new Date().toISOString(),
-          }),
-      ),
-    );
+    // API Gateway
+    const gateway = new APIGateway(app, context, repo, event);
+    const proceed = gateway.acceptEvent();
 
-    await Promise.all(
-      modules.map((module: HandlerModule) =>
-        module.handler(event, context, app, repo, extension),
-      ),
-    );
+    if (proceed) {
+      await Promise.all(
+        modules.map((module: HandlerModule) =>
+          module.handler(event, context, app, repo, extension),
+        ),
+      );
+    }
+
     return { result: "ok" };
   } catch (err) {
     console.error("Error process the request:", err);

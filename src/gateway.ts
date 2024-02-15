@@ -1,5 +1,6 @@
-import { Repository } from "./common";
 import { Context, Probot } from "probot";
+import { Repository } from "./common";
+import { REPOS_IGNORE } from "./constant";
 
 type isDesiredEvent = boolean;
 
@@ -11,29 +12,26 @@ export class APIGateway {
   metadata: Context<any>["payload"];
   accepted: isDesiredEvent;
 
-  constructor(app: Probot, context: Context<any>, event: string) {
+  constructor(
+    app: Probot,
+    context: Context<any>,
+    repo: Repository,
+    event: string,
+  ) {
     this.app = app;
     this.context = context;
-    this.repo = {
-      name: context.payload.repository.name,
-      owner: context.payload.organization?.login as string,
-    };
+    this.repo = repo;
     this.event = event;
     this.metadata = context.payload;
     this.accepted = true;
   }
 
-  loadSubscriptions() {}
-
   // Apply filters for a given event
   acceptEvent(): isDesiredEvent {
+    const reposIgnore = REPOS_IGNORE.split(",");
     switch (this.event) {
-      case "pull_request.opened":
-        if (
-          ["daeuniverse/dae", "daeuniverse/dae-wing"].includes(
-            `${this.repo.owner}/${this.repo.name}`,
-          )
-        ) {
+      case "push":
+        if (reposIgnore.includes(`${this.repo.owner}/${this.repo.name}`)) {
           this.accepted = false;
         }
         break;
