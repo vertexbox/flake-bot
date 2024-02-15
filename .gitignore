@@ -8,3 +8,4 @@ coverage
 lib
 .vercel
 rules.yaml
+.sops.yaml
