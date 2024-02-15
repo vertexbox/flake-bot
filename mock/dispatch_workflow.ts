@@ -1,8 +1,10 @@
-import "dotenv/config";
+import * as dotenv from "dotenv";
 import { Octokit } from "octokit";
 const { createAppAuth } = require("@octokit/auth-app");
 import fs from "fs";
-var privateKey = fs.readFileSync("private-key-staging.pem", "utf8").toString();
+
+dotenv.config();
+const privateKey = fs.readFileSync("private-key.pem", "utf8").toString();
 
 // Compare: https://docs.github.com/en/rest/reference/users#get-the-authenticated-user
 const main = async () => {
@@ -19,17 +21,21 @@ const main = async () => {
     const octokit = new Octokit({ auth: installationAuth.token });
 
     // Define the repository owner and name
-    const owner = "daeuniverse";
-    const repo = "dae";
+    const owner = "yqlbu";
+    const repo = "dotfiles.nix";
 
     // list pull_request_review request
-    const response = await octokit.rest.pulls.get({
+    const response = await octokit.rest.actions.createWorkflowDispatch({
       owner,
       repo,
-      pull_number: 426,
+      workflow_id: "sync-upstream.yml",
+      ref: "refs/heads/ci",
+      inputs: {
+        input: "kitty",
+      },
     });
 
-    console.log("PR fetched:", response.data);
+    console.log("Success!");
   } catch (err: any) {
     console.log(err);
     throw new Error("Failed to process");
