@@ -1,12 +1,12 @@
-# compliance-bot
+# flake-bot
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) serves to audit and regulate compliance status for repos in [daeuniverse](https://github.com/daeuniverse) organization.
+> A GitHub App built with [Probot](https://github.com/probot/probot) serves to handle complicated sync workflows for NixOS and Nix Flake usage.
 
 ## Setup
 
 ```sh
 # Install dependencies
-npm install
+yarn install
 
 # Run the bot
 npm run debug
@@ -14,7 +14,7 @@ npm run debug
 
 ## Contributing
 
-If you have suggestions for how dae-bot could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
+If you have suggestions for how flake-bot could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
 
 For more, check out the [Contributing Guide](CONTRIBUTING.md).
 
@@ -26,4 +26,4 @@ For more, check out the [Contributing Guide](CONTRIBUTING.md).
 
 ## License
 
-[ISC](LICENSE) © 2023 daeuniverse
+[ISC](LICENSE) © 2024 @vertexbox
