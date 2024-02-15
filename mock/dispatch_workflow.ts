@@ -20,12 +20,12 @@ const main = async () => {
     });
     const octokit = new Octokit({ auth: installationAuth.token });
 
-    // Define the repository owner and name
+    // define the repository owner and name
     const owner = "yqlbu";
     const repo = "dotfiles.nix";
 
-    // list pull_request_review request
-    const response = await octokit.rest.actions.createWorkflowDispatch({
+    // dispatch github workflow
+    await octokit.rest.actions.createWorkflowDispatch({
       owner,
       repo,
       workflow_id: "sync-upstream.yml",
