@@ -22,9 +22,11 @@
     "update-deps": "npx npm-check-updates -u && yarn install"
   },
   "dependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/uuid": "^9.0.7",
     "@vercel/kv": "^1.0.1",
     "dotenv": "^16.3.1",
+    "js-yaml": "^4.1.0",
     "pino": "^8.18.0",
     "prettier": "^3.1.1",
     "probot": "^12.3.3",
