@@ -1,0 +1,9 @@
+# Ignore everything (folders and files) on root only
+/*
+!api
+!src
+!package.json
+!package-lock.json
+!yarn.lock
+!jest.config.js
+!tsconfig.json

@@ -9,3 +9,4 @@ lib
 .vercel
 rules.yaml
 .sops.yaml
+.env*.local
