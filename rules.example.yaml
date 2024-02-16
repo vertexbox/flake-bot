@@ -1,0 +1,11 @@
+---
+sync_rules:
+  - name: dotfile_submodules
+    from: []
+    to: "<owner>/<repo>"
+  - name: dotfiles_nixos
+    from: []
+    to: "<owner>/<repo>"
+  - name: secrets_nixos
+    from: []
+    to: "<owner>/<repo>"
