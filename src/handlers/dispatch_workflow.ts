@@ -6,7 +6,7 @@ import {
   Extension,
   Result,
 } from "../common";
-import { WORKFLOW_DISPATCH_REPO, WORKFLOW_DISPATCH_OWNER } from "../constant";
+import { SYNC_WORKFLOW_NAME } from "../constant";
 
 export = {
   name: "dispatch_workflow",
@@ -26,6 +26,7 @@ async function handler(
   const metadata = {
     ref: payload.ref,
     branch: payload.ref.split("/")[-1],
+    default_branch: payload.repository.default_branch,
     html_url: payload.repository.html_url,
     sha: payload.after,
     repo: repo.name,
@@ -38,16 +39,14 @@ async function handler(
   app.log.info("Dispatch workflow remotely");
 
   try {
-    // 1.1 Extract sync source from metadata
-    const syncSource = repo.name.split("-")[1];
     // 1.2 Dispatch github workflow
     await extension.octokit.rest.actions.createWorkflowDispatch({
-      owner: WORKFLOW_DISPATCH_OWNER,
-      repo: WORKFLOW_DISPATCH_REPO,
-      workflow_id: "sync-upstream.yml",
-      ref: "refs/heads/master",
+      owner: extension.sync.target.owner,
+      repo: extension.sync.target.name,
+      workflow_id: SYNC_WORKFLOW_NAME,
+      ref: `refs/heads/${metadata.default_branch}`,
       inputs: {
-        input: syncSource,
+        input: extension.sync.source,
       },
     });
 

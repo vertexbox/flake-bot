@@ -21,7 +21,15 @@ interface HandlerModule {
 
 type Extension = {
   octokit: InstanceType<typeof ProbotOctokit>;
+  sync: Sync;
 };
+
+type Sync = {
+  source: string;
+  target: SyncTarget;
+};
+
+type SyncTarget = Repository;
 
 type Repository = {
   owner: string;

@@ -1,5 +1,8 @@
-export const WORKFLOW_DISPATCH_OWNER = process.env
-  .WORKFLOW_DISPATCH_OWNER as string;
-export const WORKFLOW_DISPATCH_REPO = process.env
-  .WORKFLOW_DISPATCH_REPO as string;
 export const REPOS_IGNORE = process.env.REPOS_IGNORE as string;
+export const SYNC_WORKFLOW_NAME =
+  (process.env.SYNC_WORKFLOW_NAME as string) ?? "sync-upstream.yml";
+
+export const RULESET_REMOTE_OWNER = process.env.RULESET_REMOTE_OWNER as string;
+export const RULESET_REMOTE_REPO = process.env.RULESET_REMOTE_REPO as string;
+export const RULESET_REMOTE_PATH = process.env.RULESET_REMOTE_PATH as string;
+export const RULESET_REMOTE_REF = process.env.RULESET_REMOTE_REF as string;
