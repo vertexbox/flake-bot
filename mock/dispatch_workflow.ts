@@ -21,7 +21,7 @@ const main = async () => {
     const octokit = new Octokit({ auth: installationAuth.token });
 
     // define the repository owner and name
-    const owner = "yqlbu";
+    const owner = "miooochi";
     const repo = "dotfiles.nix";
 
     // dispatch github workflow
